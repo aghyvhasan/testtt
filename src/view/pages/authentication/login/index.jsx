@@ -18,9 +18,11 @@ const Login = ({ error, isAuthenticated, login }) => {
   const handleSubmit = async (values) => {
     const email = values.email;
     const password = values.password;
-
     try {
       await login(email, password);
+      if (isAuthenticated) {
+        history.push("/main/dashboard/ecommerce");
+      }
     } catch (error) {
       console.error("Error occurred during login:", error);
       setError("Invalid email or password");

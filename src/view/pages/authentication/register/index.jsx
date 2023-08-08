@@ -33,7 +33,7 @@ export default function SignUp() {
     }
 
     // Make the POST request to the specific URL using the email value
-    fetch("https://localhost:7246/api/User/create", {
+    fetch("https://cryptolotteryapi.azurewebsites.net/api/User/create", {
       method: "POST",
       body: JSON.stringify({ firstName, lastName, userName, email, password, isLocked, lockReason, photo }),
       headers: {

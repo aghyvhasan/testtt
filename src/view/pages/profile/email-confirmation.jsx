@@ -8,7 +8,7 @@ export default function EmailConfirmProfile() {
     const email = values.email;
 
     // Make the POST request to the specific URL using the email value
-    fetch("https://localhost:7246/api/User/ConfirmEmail", {
+    fetch("https://cryptolotteryapi.azurewebsites.net/api/User/ConfirmEmail", {
       method: "POST",
       body: JSON.stringify({ email }),
       headers: {

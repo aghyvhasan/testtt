@@ -4,7 +4,7 @@ const authService = {
   login: async (email, password) => {
     try {
       const response = await axios.post(
-        "https://localhost:7246/api/user/login",
+        "https://cryptolotteryapi.azurewebsites.net/api/user/login",
         {
           email,
           password,
@@ -21,7 +21,7 @@ const authService = {
 };
 
 const apiService = axios.create({
-  baseURL: "https://localhost:7246/api/",
+  baseURL: "https://cryptolotteryapi.azurewebsites.net/api/",
   headers: {
     "Content-Type": "application/json",
   },
@@ -36,7 +36,7 @@ apiService.interceptors.request.use((config) => {
 });
 
 const apiServicePublic = axios.create({
-  baseURL: "https://localhost:7246/api/",
+  baseURL: "https://cryptolotteryapi.azurewebsites.net/api/",
   headers: {
     "Content-Type": "application/json",
   },

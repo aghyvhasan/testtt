@@ -89,6 +89,7 @@ import {
 import AppLocale from "./languages";
 import PrivateRoute from "./PrivateRoute";
 import Home from "../src/view/main/dashboard/ecommerce";
+import PasswordChange from "../src/view/pages/profile/password-change";
 import Login from "../src/view/pages/authentication/login";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "../src/redux/store";
@@ -125,6 +126,11 @@ export default function App() {
                   path="/pages/authentication/login"
                   component={Login}
                 />
+                <PrivateRoute
+                  exact
+                  path="/pages/profile/password-change"
+                  component={PasswordChange}
+                />
                 <Redirect to="/main/dashboard/ecommerce" />
               </Switch>
             </Router>
@@ -134,9 +140,6 @@ export default function App() {
     </Provider>
   );
 }
-
-
-
 
 // import { useEffect } from "react";
 // import { useSelector } from "react-redux";

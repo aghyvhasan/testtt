@@ -26,7 +26,7 @@ export default function PasswordProfile() {
     }
 
     // Make the POST request to the specific URL using the email value
-    fetch("https://localhost:7246/api/User/ChangePassword", {
+    fetch("https://cryptolotteryapi.azurewebsites.net/api/User/ChangePassword", {
       method: "POST",
       body: JSON.stringify({ oldPassword, newPassword, userId }),
       headers: {
