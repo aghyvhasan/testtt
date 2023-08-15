@@ -12,7 +12,7 @@ import {
     BrowserRouter,
     Route,
     Switch,
-    useHistory,
+    useLocation,
 } from "react-router-dom";
 
 // Routes
@@ -25,18 +25,19 @@ import FullLayout from "../layout/FullLayout";
 // Components
 import Analytics from "../view/main/dashboard/analytics";
 import Error404 from "../view/pages/errors/404";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useCheckUser } from "../hooks/useCheckUser";
 
 export default function Router() {
     // Redux
     const customise = useSelector(state => state.customise)
     const dispatch = useDispatch()
+    
+    const location = useLocation()
+    // route replace ='/'
+    const router=useHistory()
 
-    // Location
-    // const location = useHistory()
-
-    // Dark Mode
     let themeLocal
-
     useEffect(() => {
         if (localStorage) {
             themeLocal = localStorage.getItem("theme")
@@ -51,6 +52,7 @@ export default function Router() {
         }
     }, [])
 
+
     // RTL
     useEffect(() => {
         if (customise.direction == "ltr") {
@@ -60,24 +62,28 @@ export default function Router() {
         }
     }, [])
 
-    // Url Check
-    // useEffect(() => {
-    //     // Theme
-    //     if (location.location.search == "?theme=dark") {
-    //         localStorage.setItem("theme", "dark")
-    //         themeLocal = "dark"
-    //     } else if (location.location.search == "?theme=light") {
-    //         localStorage.setItem("theme", "light")
-    //         themeLocal = "light"
-    //     }
+    // console.log(location)
 
-    //     // Direction
-    //     if (location.location.search == "?direction=ltr") {
-    //         document.querySelector("html").setAttribute("dir", "ltr");
-    //     } else if (location.location.search == "?direction=rtl") {
-    //         document.querySelector("html").setAttribute("dir", "rtl");
-    //     }
-    // }, [])
+    useEffect(() => {
+        // Theme
+        if (location.search == "?theme=dark") {
+            localStorage.setItem("theme", "dark")
+            themeLocal = "dark"
+        } else if (location.search == "?theme=light") {
+            localStorage.setItem("theme", "light")
+            themeLocal = "light"
+        }
+
+        // Direction
+        if (location.search == "?direction=ltr") {
+            document.querySelector("html").setAttribute("dir", "ltr");
+        } else if (location.search == "?direction=rtl") {
+            document.querySelector("html").setAttribute("dir", "rtl");
+        }
+    }, [])
+
+  useCheckUser(router)
+   
 
     // Default Layout
     const DefaultLayout = customise.layout; // FullLayout or VerticalLayout
@@ -157,7 +163,6 @@ export default function Router() {
     };
 
     return (
-        <BrowserRouter>
             <Switch>
                 {ResolveRoutes()}
 
@@ -185,6 +190,5 @@ export default function Router() {
                     <Error404 />
                 </Route>
             </Switch>
-        </BrowserRouter>
     );
 };

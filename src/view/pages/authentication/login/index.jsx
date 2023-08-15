@@ -3,12 +3,14 @@ import { Link, useHistory } from "react-router-dom";
 import { Row, Col, Form, Input, Button, Checkbox, Alert } from "antd";
 import LeftContent from "../leftContent";
 import Footer from "../footer";
-import { connect } from "react-redux";
-import { login } from "../../../../redux/login/loginActions";
+import { loginAction } from "../../../../mobx/auth/actions/loginAction";
+import { observer } from "mobx-react-lite";
+import authStates from "../../../../mobx/auth/authStates";
 
-const Login = ({ error, isAuthenticated, login }) => {
+const Login = () => {
   const history = useHistory();
-
+  const isAuthenticated=authStates.isAuth
+  const error=authStates.error
   useEffect(() => {
     if (isAuthenticated) {
       history.push("/main/dashboard/ecommerce");
@@ -19,13 +21,13 @@ const Login = ({ error, isAuthenticated, login }) => {
     const email = values.email;
     const password = values.password;
     try {
-      await login(email, password);
+      await loginAction(email, password);
       if (isAuthenticated) {
         history.push("/main/dashboard/ecommerce");
       }
     } catch (error) {
       console.error("Error occurred during login:", error);
-      setError("Invalid email or password");
+      authStates.setError("Invalid email or password");
     }
   };
 
@@ -142,12 +144,4 @@ const Login = ({ error, isAuthenticated, login }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  error: state.login.error,
-  isAuthenticated: state.login.isAuthenticated,
-});
-
-const mapDispatchToProps = {
-  login,
-};
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default observer(Login)

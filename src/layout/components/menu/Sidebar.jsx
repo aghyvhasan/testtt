@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { useSelector } from 'react-redux';
 
@@ -31,7 +31,7 @@ export default function Sidebar(props) {
     }, [customise])
 
     // Location
-    // const location = useLocation();
+    const location = useLocation();
 
     // Mobile Sidebar
     const onClose = () => {
@@ -44,12 +44,12 @@ export default function Sidebar(props) {
     }
 
     return (
-        <Sider
-            trigger={null}
-            collapsible
-            collapsed={collapsed}
-            width={316}
-            className="hp-sidebar hp-bg-black-20 hp-bg-color-dark-95 hp-border-right-1 hp-border-color-black-40 hp-border-color-dark-80"
+        <Sider 
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+        width={316}
+        className="hp-sidebar hp-bg-black-20 hp-bg-color-dark-90 hp-border-right-1 hp-border-color-black-40 hp-border-color-dark-80"
         >
             <motion.div
                 initial={{ opacity: 0, x: -50 }}
