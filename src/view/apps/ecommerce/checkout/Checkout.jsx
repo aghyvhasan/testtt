@@ -6,7 +6,7 @@ import BreadCrumbs from "../../../../layout/components/content/breadcrumbs";
 import OrderProduct from "./OrderProduct";
 import Summary from "./Summary";
 import EmptyImage from "../../../../assets/images/apps/ecommerce/checkout-empty.svg";
-import Bulb from "../../../../assets/images/pages/landing/light-bulb-color-icon.svg";
+// import Bulb from "../../../../assets/images/pages/landing/light-bulb-color-icon.svg";
 import netflixLogo from "../../../../assets/images/dasboard/netflix-logo.svg";
 import netflixBg from "../../../../assets/images/dasboard/netflix-bg.svg";
 import amazonBg from "../../../../assets/images/dasboard/amazon-bg.svg";

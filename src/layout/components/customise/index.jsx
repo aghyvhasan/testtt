@@ -6,7 +6,7 @@ import { contentWidth, direction, layoutChange, navigationBg, navigationFull, si
 
 import { Row, Col, Button, Tag } from "antd";
 import { RiCloseFill } from 'react-icons/ri';
-import { motion } from 'framer-motion/dist/framer-motion';
+import { motion } from 'framer-motion';
 
 export default function CustomiseTheme() {
     const [active, setActive] = useState(false);

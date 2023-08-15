@@ -1,5 +1,7 @@
 import React from "react";
-import { useLocation, Link } from "react-router-dom";
+import {
+    //  useLocation,
+     Link } from "react-router-dom";
 
 import { useSelector, useDispatch } from 'react-redux';
 import { loadCurrentItem } from "../../../../redux/ecommerce/ecommerceActions";
@@ -19,7 +21,7 @@ export default function MenuItem(props) {
     const dispatch = useDispatch()
 
     // Location
-    const location = useLocation();
+    // const location = useLocation();
     const { pathname } = location;
 
     const splitLocation = pathname.split("/")

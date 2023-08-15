@@ -1,7 +1,7 @@
 import { Suspense, useEffect } from "react";
 
 // Motion
-import { motion } from 'framer-motion/dist/framer-motion';
+import { motion } from 'framer-motion';
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -32,7 +32,7 @@ export default function Router() {
     const dispatch = useDispatch()
 
     // Location
-    const location = useHistory()
+    // const location = useHistory()
 
     // Dark Mode
     let themeLocal
@@ -61,23 +61,23 @@ export default function Router() {
     }, [])
 
     // Url Check
-    useEffect(() => {
-        // Theme
-        if (location.location.search == "?theme=dark") {
-            localStorage.setItem("theme", "dark")
-            themeLocal = "dark"
-        } else if (location.location.search == "?theme=light") {
-            localStorage.setItem("theme", "light")
-            themeLocal = "light"
-        }
+    // useEffect(() => {
+    //     // Theme
+    //     if (location.location.search == "?theme=dark") {
+    //         localStorage.setItem("theme", "dark")
+    //         themeLocal = "dark"
+    //     } else if (location.location.search == "?theme=light") {
+    //         localStorage.setItem("theme", "light")
+    //         themeLocal = "light"
+    //     }
 
-        // Direction
-        if (location.location.search == "?direction=ltr") {
-            document.querySelector("html").setAttribute("dir", "ltr");
-        } else if (location.location.search == "?direction=rtl") {
-            document.querySelector("html").setAttribute("dir", "rtl");
-        }
-    }, [])
+    //     // Direction
+    //     if (location.location.search == "?direction=ltr") {
+    //         document.querySelector("html").setAttribute("dir", "ltr");
+    //     } else if (location.location.search == "?direction=rtl") {
+    //         document.querySelector("html").setAttribute("dir", "rtl");
+    //     }
+    // }, [])
 
     // Default Layout
     const DefaultLayout = customise.layout; // FullLayout or VerticalLayout

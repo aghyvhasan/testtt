@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Layout, Button, Row, Col, Badge } from "antd";
 import { RiCloseLine, RiMenuFill } from "react-icons/ri";
 import { SearchNormal1, ShoppingCart } from "iconsax-react";
-import { motion } from "framer-motion/dist/framer-motion";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 import HeaderSearch from "./HeaderSearch";
@@ -12,7 +12,7 @@ import HeaderNotifications from "./HeaderNotifications";
 import HeaderLanguages from "./HeaderLanguages";
 import HeaderCart from "./HeaderCart";
 import HeaderText from "./HeaderText";
-import connection from "../../../signalR";
+// import connection from "../../../signalR";
 import { apiService, authService } from "../../../apiService";
 
 const { Header } = Layout;
@@ -30,30 +30,30 @@ export default function MenuHeader(props) {
 
   useEffect(async () => {
     // await authUser();
-    const cartItemsQty = await apiService
-      .get("carts/getCartItemsQty")
-      .then((response) => {
-        setCartItemQty(response.data);
-      })
-      .catch((error) => {
-        console.error("Error deleting cart item:", error);
-      });
-    if (connection) {
-      try {
-        connection
-          .start()
-          .then(() => console.log("SignalR Connected"))
-          .catch((error) => console.log("SignalR Connection Error: ", error));
+    // const cartItemsQty = await apiService
+    //   .get("carts/getCartItemsQty")
+    //   .then((response) => {
+    //     setCartItemQty(response.data);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error deleting cart item:", error);
+    //   });
+    // if (connection) {
+    //   try {
+    //     connection
+    //       .start()
+    //       .then(() => console.log("SignalR Connected"))
+    //       .catch((error) => console.log("SignalR Connection Error: ", error));
 
-        connection.on("ReceiveMessage", (message) => {
-          setMessages((prevMessages) => [...prevMessages, { message }]);
-          setCartItemQty(message);
-        });
-      } catch (error) {
-        console.error("Error starting SignalR connection:", error);
-      }
-    }
-  }, [connection, setMessages, setCartItemQty]);
+    //     connection.on("ReceiveMessage", (message) => {
+    //       setMessages((prevMessages) => [...prevMessages, { message }]);
+    //       setCartItemQty(message);
+    //     });
+    //   } catch (error) {
+    //     console.error("Error starting SignalR connection:", error);
+    //   }
+    // }
+  }, [ setMessages, setCartItemQty]);
 
   // Focus
   const inputFocusRef = useRef(null);

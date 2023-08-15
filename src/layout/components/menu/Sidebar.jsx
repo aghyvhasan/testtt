@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 
 import { useSelector } from 'react-redux';
 
 import { Layout, Row, Col } from "antd";
-import { motion } from 'framer-motion/dist/framer-motion';
+import { motion } from 'framer-motion';
 
 import MenuLogo from "./logo";
 import MenuFooter from "./footer";
@@ -31,7 +31,7 @@ export default function Sidebar(props) {
     }, [customise])
 
     // Location
-    const location = useLocation();
+    // const location = useLocation();
 
     // Mobile Sidebar
     const onClose = () => {

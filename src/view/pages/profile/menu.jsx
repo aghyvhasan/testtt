@@ -1,5 +1,7 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link,
+  //  useLocation
+ } from "react-router-dom";
 
 import { useSelector } from "react-redux";
 
@@ -41,7 +43,7 @@ export default function MenuProfile(props) {
     }
   }
   //location
-  const location = useLocation();
+  // const location = useLocation();
   const { pathname } = location;
   const splitLocation = pathname.split("/");
 

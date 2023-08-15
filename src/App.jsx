@@ -80,12 +80,7 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { ConfigProvider } from "antd";
 import { IntlProvider } from "react-intl";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
+
 import AppLocale from "./languages";
 import PrivateRoute from "./PrivateRoute";
 import Home from "../src/view/main/dashboard/ecommerce";
@@ -94,6 +89,9 @@ import Login from "../src/view/pages/authentication/login";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "../src/redux/store";
 import { Provider } from "react-redux";
+import FullLayout from "./layout/FullLayout";
+import VerticalLayout from "./layout/VerticalLayout";
+import Router from "./router/Router";
 
 export default function App() {
   const customise = useSelector((state) => state.customise);
@@ -106,34 +104,9 @@ export default function App() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <ConfigProvider
-          locale={currentAppLocale.antd}
-          direction={customise.direction}
-        >
-          <IntlProvider
-            locale={currentAppLocale.locale}
-            messages={currentAppLocale.messages}
-          >
-            <Router>
-              <Switch>
-                <PrivateRoute
-                  exact
-                  path="/main/dashboard/ecommerce"
-                  component={Home}
-                />
-                <Route
-                  exact
-                  path="/pages/authentication/login"
-                  component={Login}
-                />
-                <PrivateRoute
-                  exact
-                  path="/pages/profile/password-change"
-                  component={PasswordChange}
-                />
-                <Redirect to="/main/dashboard/ecommerce" />
-              </Switch>
-            </Router>
+        <ConfigProvider locale={currentAppLocale.antd} direction={customise.direction}>
+          <IntlProvider locale={currentAppLocale.locale} messages={currentAppLocale.messages}>
+            <Router />
           </IntlProvider>
         </ConfigProvider>
       </PersistGate>
@@ -141,15 +114,18 @@ export default function App() {
   );
 }
 
+
+
+
 // import { useEffect } from "react";
 // import { useSelector } from "react-redux";
 // import { ConfigProvider } from "antd";
 // import { IntlProvider } from "react-intl";
 // import {
-//   BrowserRouter as Router,
-//   Switch,
-//   Route,
-//   Redirect,
+  //   BrowserRouter as Router,
+  //   Switch,
+  //   Route,
+  //   Redirect,
 // } from "react-router-dom";
 // import AppLocale from "./languages";
 // import PrivateRoute from "./PrivateRoute";

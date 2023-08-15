@@ -51,7 +51,12 @@ export default function HeaderUser() {
 
       <Row gutter={[0, 24]}>
         <Col span={24}>
-          <Link
+          <Link onClick={()=>{
+            localStorage.setItem("token","")
+            localStorage.setItem("persist:login","")
+            localStorage.setItem("persist:root","")
+            
+          }}
             to="/pages/authentication/login"
             className="hp-p1-body hp-font-weight-500 hp-hover-text-color-primary-2"
           >
