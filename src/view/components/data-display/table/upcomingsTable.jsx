@@ -1,39 +1,41 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { monoBlue } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { customizedFilterPanel } from "./code.js";
-import { loadCurrentItem } from '../../../../redux/ecommerce/ecommerceActions';
-import Highlighter from 'react-highlight-words';
+import { loadCurrentItem } from "../../../../redux/ecommerce/ecommerceActions";
+import Highlighter from "react-highlight-words";
 import { Table, Input, DatePicker, Button, Space, Row, Col, Card } from "antd";
 import { RiCodeSSlashLine, RiSearch2Line } from "react-icons/ri";
-import { useDispatch } from 'react-redux';
-import moment from 'moment';
-import { apiService } from "../../../../apiService.jsx"
+import { useDispatch } from "react-redux";
+import moment from "moment";
+import { apiService } from "../../../../apiService.jsx";
 import { RiCalendarLine } from "react-icons/ri";
 
 export default function UpcomingsTable() {
   const [checkedCode, setCheckedCode] = useState(false);
   const [codeClass, setCodeClass] = useState(false);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   function toggleChecked() {
     setTimeout(() => setCodeClass(!codeClass), 100);
     setCheckedCode(!checkedCode);
   }
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState("");
   const [dataSource, setDataSource] = useState([]);
   const [dataSourceRoot, setDataSourceRoot] = useState([]);
   const [fromDateFilter, setFromDateFilter] = useState([]);
   const [toDateFilter, setToDateFilter] = useState([]);
-  const [searchedColumn, setSearchedColumn] = useState('');
+  const [searchedColumn, setSearchedColumn] = useState("");
   const { RangePicker } = DatePicker;
 
   useEffect(() => {
     const cartItems = async () => {
       try {
-        const result = await apiService.get(`lottery/getUpcomingLotteryListByUser`);
-        setDataSource(result.data)
-        setDataSourceRoot(result.data)
+        const result = await apiService.get(
+          `lottery/getUpcomingLotteryListByUser`
+        );
+        setDataSource(result.data);
+        setDataSourceRoot(result.data);
       } catch (error) {
         console.log(error);
       }
@@ -54,53 +56,68 @@ export default function UpcomingsTable() {
 
   // }
 
-
   function checkStatus(leftTicketQty, id, isJoined) {
     if (leftTicketQty > 0) {
       if (isJoined == false) {
         return (
-          <Link to={`/apps/ecommerce/product-detail/${id}`} >
-            <Button block type="primary" className="btnStyle1 hp-bg-success-1 hp-border-color-success-1 hp-hover-bg-success-2 hp-hover-border-color-success-2">
-              {isJoined == false ? 'Join' : 'Re-join'}
+          <Link to={`/apps/ecommerce/product-detail/${id}`}>
+            <Button
+              block
+              type="primary"
+              className="btnStyle1 hp-bg-success-1 hp-border-color-success-1 hp-hover-bg-success-2 hp-hover-border-color-success-2"
+            >
+              {isJoined == false ? "Join" : "Re-join"}
             </Button>
           </Link>
-        )
-      }
-      else if (isJoined == true) {
+        );
+      } else if (isJoined == true) {
         return (
-          <Link to={`/apps/ecommerce/product-detail/${id}`} >
-            <Button type="dashed" className="btnStyle3 hp-text-color-success-1 hp-border-color-success-1 hp-hover-text-color-success-2 hp-hover-border-color-success-2">
+          <Link to={`/apps/ecommerce/product-detail/${id}`}>
+            <Button
+              type="dashed"
+              className="btnStyle3 hp-text-color-success-1 hp-border-color-success-1 hp-hover-text-color-success-2 hp-hover-border-color-success-2"
+            >
               Re-join
             </Button>
           </Link>
-        )
+        );
       }
-    }
-    else {
+    } else {
       return (
         // <Link to={`/apps/ecommerce/product-detail/${id}`} >
-        <Button block type="primary" className="btnStyle4 hp-text-color-success-1 hp-border-color-success-1 hp-hover-text-color-success-2 hp-hover-border-color-success-2">
+        <Button
+          block
+          type="primary"
+          className="btnStyle4 hp-text-color-success-1 hp-border-color-success-1 hp-hover-text-color-success-2 hp-hover-border-color-success-2"
+        >
           Sold out
         </Button>
         // </Link>
-      )
+      );
     }
   }
 
   function calculateChance(ticketCount) {
-    var tCount = 1 * 100 / ticketCount
-    return (tCount % 1 != 0 ? tCount.toFixed(1) : tCount) + '%'
+    var tCount = (1 * 100) / ticketCount;
+    return (tCount % 1 != 0 ? tCount.toFixed(1) : tCount) + "%";
   }
 
   const getColumnSearchProps = (dataIndex) => ({
-    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters,
+    }) => (
       <div style={{ padding: 8 }}>
         <Input
-          placeholder={'Search ' + dataIndex}
+          placeholder={"Search " + dataIndex}
           value={selectedKeys[0]}
-          onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+          onChange={(e) =>
+            setSelectedKeys(e.target.value ? [e.target.value] : [])
+          }
           onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
-          style={{ marginBottom: 8, display: 'block' }}
+          style={{ marginBottom: 8, display: "block" }}
         />
         <Space>
           <Button
@@ -113,24 +130,33 @@ export default function UpcomingsTable() {
             Search
           </Button>
 
-          <Button onClick={() => handleReset(clearFilters)} size="small" style={{ width: 90 }}>
+          <Button
+            onClick={() => handleReset(clearFilters)}
+            size="small"
+            style={{ width: 90 }}
+          >
             Reset
           </Button>
         </Space>
       </div>
     ),
-    filterIcon: filtered => <RiSearch2Line style={{ color: filtered ? '#1890ff' : undefined }} />,
+    filterIcon: (filtered) => (
+      <RiSearch2Line style={{ color: filtered ? "#1890ff" : undefined }} />
+    ),
     onFilter: (value, record) =>
       record[dataIndex]
-        ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase())
-        : '',
-    render: text =>
+        ? record[dataIndex]
+            .toString()
+            .toLowerCase()
+            .includes(value.toLowerCase())
+        : "",
+    render: (text) =>
       searchedColumn === dataIndex ? (
         <Highlighter
-          highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
           searchWords={[searchText]}
           autoEscape
-          textToHighlight={text ? text.toString() : ''}
+          textToHighlight={text ? text.toString() : ""}
         />
       ) : (
         text
@@ -138,7 +164,15 @@ export default function UpcomingsTable() {
   });
 
   function filterTable(isJoined) {
-    setDataSource(dataSourceRoot.filter(o => isJoined ? o.isJoined !== null : o.isJoined && fromDateFilter >= o.playDate && o.playDate <= toDateFilter))
+    setDataSource(
+      dataSourceRoot.filter((o) =>
+        isJoined
+          ? o.isJoined !== null
+          : o.isJoined &&
+            fromDateFilter >= o.playDate &&
+            o.playDate <= toDateFilter
+      )
+    );
   }
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
@@ -148,64 +182,64 @@ export default function UpcomingsTable() {
     setSearchedColumn(dataIndex);
   };
 
-  const handleReset = clearFilters => {
+  const handleReset = (clearFilters) => {
     clearFilters();
-    setSearchText('');
+    setSearchText("");
   };
-
 
   const columns = [
     {
-      title: 'Lottery',
-      dataIndex: 'lotteryCode',
-      key: 'lotteryCode',
-      width: '20%',
-      ...getColumnSearchProps('lottery'),
+      title: "Lottery",
+      dataIndex: "lotteryCode",
+      key: "lotteryCode",
+      width: "20%",
+      ...getColumnSearchProps("lottery"),
     },
     {
-      title: 'Date',
-      dataIndex: 'playDate',
-      key: 'playDate',
-      width: '18%',
-      render: (date) => moment(date).format('DD/MM/yyyy')
+      title: "Date",
+      dataIndex: "playDate",
+      key: "playDate",
+      width: "18%",
+      render: (date) => moment(date).format("DD/MM/yyyy"),
     },
     {
-      title: 'Contributors',
-      dataIndex: 'ticketCount',
-      key: 'ticketCount',
-      width: '15%',
+      title: "Contributors",
+      dataIndex: "ticketCount",
+      key: "ticketCount",
+      width: "15%",
       sorter: (a, b) => a.address.length - b.address.length,
-      sortDirections: ['descend', 'ascend'],
+      sortDirections: ["descend", "ascend"],
     },
     {
-      title: 'Found',
-      dataIndex: 'ticketPrice',
-      key: 'ticketPrice',
-      width: '15%',
-      render: (ticketPrice) => '$' + ticketPrice,
+      title: "Found",
+      dataIndex: "ticketPrice",
+      key: "ticketPrice",
+      width: "15%",
+      render: (ticketPrice) => "$" + ticketPrice,
       sorter: (a, b) => a.address.length - b.address.length,
-      sortDirections: ['descend', 'ascend'],
+      sortDirections: ["descend", "ascend"],
     },
     {
-      title: 'Prize',
-      dataIndex: 'prize',
-      key: 'prize',
-      width: '10%',
-      render: (prize) => '$' + prize,
+      title: "Prize",
+      dataIndex: "prize",
+      key: "prize",
+      width: "10%",
+      render: (prize) => "$" + prize,
       sorter: (a, b) => a.address.length - b.address.length,
-      sortDirections: ['descend', 'ascend'],
+      sortDirections: ["descend", "ascend"],
     },
     {
-      title: 'Chance',
-      dataIndex: 'ticketCount',
-      key: 'ticketCount',
-      width: '10%',
-      render: (ticketCount) => calculateChance(ticketCount)
+      title: "Chance",
+      dataIndex: "ticketCount",
+      key: "ticketCount",
+      width: "10%",
+      render: (ticketCount) => calculateChance(ticketCount),
     },
     {
-      width: '10%',
-      key: 'action',
-      render: (action) => checkStatus(action.leftTicketQty, action.idLottery, action.isJoined),
+      width: "10%",
+      key: "action",
+      render: (action) =>
+        checkStatus(action.leftTicketQty, action.idLottery, action.isJoined),
     },
   ];
 
@@ -220,21 +254,25 @@ export default function UpcomingsTable() {
           <br />
           <Row>
             <Col span={24}>
-
-              <Button onClick={() => filterTable(true)} type="primary" className="hp-btn-outline hp-text-color-warning-1 hp-border-color-warning-1 hp-hover-bg-warning-1 hp-mr-16 hp-mb-16">
+              <Button
+                onClick={() => filterTable(true)}
+                type="primary"
+                className="hp-btn-outline hp-text-color-warning-1 hp-border-color-warning-1 hp-hover-bg-warning-1 hp-mr-16 hp-mb-16"
+              >
                 All
               </Button>
 
-              <Button onClick={() => filterTable(false)} type="primary" className="hp-btn-outline hp-text-color-success-1  hp-border-color-success-1 hp-hover-bg-success-1 hp-mr-16 hp-mb-16">
+              <Button
+                onClick={() => filterTable(false)}
+                type="primary"
+                className="hp-btn-outline hp-text-color-success-1  hp-border-color-success-1 hp-hover-bg-success-1 hp-mr-16 hp-mb-16"
+              >
                 Joined
               </Button>
               {/* <RangePicker
                 onChange={onChangeDateFilter}
                 suffixIcon={<RiCalendarLine className="remix-icon hp-text-color-black-100" />}
               /> */}
-
-
-
 
               {/*                          
                             <Button type="primary" className="hp-btn-outline hp-text-color-black-100 hp-border-color-black-100 hp-hover-bg-black-100 hp-mr-16 hp-mb-16">
@@ -248,11 +286,15 @@ export default function UpcomingsTable() {
                             </Button> */}
             </Col>
           </Row>
-
         </Col>
 
         <Col span={24}>
-          <Table columns={columns} dataSource={dataSource} rowKey="idLottery" scroll={{ x: 500 }} />
+          <Table
+            columns={columns}
+            dataSource={dataSource}
+            rowKey="idLottery"
+            scroll={{ x: 500 }}
+          />
         </Col>
       </Row>
 

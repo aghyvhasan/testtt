@@ -44,14 +44,14 @@ const apiServicePublic = axios.create({
 
 // const apiService = { test
 //     private: axios.create({
-//         baseURL: 'https://localhost:7246/api/',
+//         baseURL: 'https://cryptolotteryapi.azurewebsites.net/api/',
 //         headers: {
 //             'Content-Type': 'application/json'
 //         }
 //     }),
 //     public:
 //         axios.create({
-//             baseURL: 'https://localhost:7246/api/',
+//             baseURL: 'https://cryptolotteryapi.azurewebsites.net/api/',
 //             headers: {
 //                 'Content-Type': 'application/json',
 //             }

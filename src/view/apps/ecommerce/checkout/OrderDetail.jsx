@@ -72,7 +72,7 @@ export default function OrderDetail(props) {
                       <Row align="middle">
                         <Col flex="0 0 185px" className="hp-ecommerce-app-checkout-item-img">
                           <div className='checkoutLotteryTicket'>
-                            <img src={Bulb} alt="React Logo" />
+                            <img src="" alt="React Logo" />
                           </div>
                         </Col>
                       </Row>
